@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,follow" />
+    <script>
+      (function () {
+        var l = window.location;
+
+        // If we're already on the homepage with ?p=..., stop (avoid loops)
+        if (l.search && l.search.indexOf("?p=") === 0) return;
+
+        // Preserve full path + query + hash
+        var redirect = l.pathname + l.search + l.hash;
+
+        // If it's just "/", nothing to do
+        if (!redirect || redirect === "/") return;
+
+        // Send to homepage with encoded original route
+        l.replace("/?p=" + encodeURIComponent(redirect));
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>

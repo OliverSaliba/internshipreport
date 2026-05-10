@@ -1,0 +1,326 @@
+/* 3D icon badge – sector/service cards (no heavy 3D libs) */
+
+.sectorCard {
+  perspective: 900px;
+}
+
+.icon3DBadge {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  display: grid;
+  place-items: center;
+  /* Static 3D badge (no motion, no overlays) */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(214, 228, 255, 0.9));
+  border: 1px solid rgba(40, 80, 158, 0.18);
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.06);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: transform 240ms ease, box-shadow 240ms ease;
+}
+
+.icon3DBadge::before,
+.icon3DBadge::after {
+  display: none;
+}
+
+.sectorCard:hover .icon3DBadge {
+  transform: scale(1.05);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    inset 0 -12px 20px rgba(0, 0, 0, 0.08);
+}
+
+.icon3DBadge svg,
+.icon3DBadge i {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  will-change: transform;
+  transition: transform 240ms ease;
+}
+
+/* Avoid scaling the glyph itself (prevents brief raster blur). */
+
+/* Make the icon glyph itself feel 3D (single-color emboss) */
+.icon3DBadge i {
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35),
+    0 6px 10px rgba(0, 0, 0, 0.18);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectorCard:hover .icon3DBadge {
+    transform: scale(1.02);
+  }
+}
+
+@media (min-width: 768px) {
+  .icon3DBadge {
+    width: 56px;
+    height: 56px;
+  }
+}
+
+/* Italian sectors section – futuristic grid, liquid glass cards, no scroll story */
+
+.sectors-italian-section {
+  position: relative;
+  padding: 5rem 0 6rem;
+  overflow: hidden;
+}
+
+.sectors-italian-bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(165deg, #eef4fc 0%, #f5f7fb 45%, #ffffff 100%);
+  pointer-events: none;
+}
+
+.sectors-italian-container {
+  position: relative;
+  width: 92%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.sectors-italian-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.sectors-italian-title {
+  font-family: var(--font-rajdhani, "Rajdhani", sans-serif);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  color: #1b3155;
+  margin: 0 0 0.75rem;
+}
+
+.sectors-italian-title-accent {
+  width: 64px;
+  height: 4px;
+  margin: 0 auto;
+  background: linear-gradient(90deg, #28509E, #60a5fa);
+  border-radius: 2px;
+}
+
+.sectors-italian-grid {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.sectors-italian-li {
+  display: flex;
+  min-height: 0;
+}
+
+@media (min-width: 640px) {
+  .sectors-italian-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .sectors-italian-grid {
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem;
+  }
+
+  .sectors-italian-li:first-child {
+    grid-column: span 2;
+    grid-row: span 1;
+  }
+}
+
+/* Liquid glass card – same crisp glass as .glass-social-btn (floating social buttons) */
+.sectors-italian-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 1.5rem 1.35rem;
+  min-height: 160px;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  border-radius: 22px;
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+  perspective: 900px;
+
+  /* Same as .glass-social-btn – semi-transparent crisp glass */
+  background: rgba(255, 255, 255, 0.18);
+  backdrop-filter: blur(3px) saturate(120%);
+  -webkit-backdrop-filter: blur(3px) saturate(120%);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.35),
+    0 4px 12px rgba(0, 0, 0, 0.12);
+
+  transition:
+    transform 250ms cubic-bezier(0.34, 1.56, 0.64, 1),
+    box-shadow 250ms ease,
+    background 250ms ease;
+}
+
+.sectors-italian-card::before {
+  content: none;
+}
+
+.sectors-italian-card:hover,
+.sectors-italian-card:focus-visible {
+  transform: translateY(-3px) scale(1.02);
+  background: rgba(255, 255, 255, 0.26);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.45),
+    0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.sectors-italian-card:focus-visible {
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.45),
+    0 0 0 3px rgba(40, 80, 158, 0.5),
+    0 6px 16px rgba(0, 0, 0, 0.14);
+}
+
+.sectors-italian-card-icon-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  margin-bottom: 1rem;
+  flex-shrink: 0;
+  /* Static 3D badge (no motion, no overlays) */
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.98), rgba(214, 228, 255, 0.9));
+  border: 1px solid rgba(40, 80, 158, 0.18);
+  box-shadow:
+    0 10px 22px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -10px 18px rgba(0, 0, 0, 0.06);
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  will-change: transform;
+  transition: transform 240ms ease, box-shadow 240ms ease;
+}
+
+.sectors-italian-card-icon-wrap::before,
+.sectors-italian-card-icon-wrap::after {
+  display: none;
+}
+
+.sectors-italian-card:hover .sectors-italian-card-icon-wrap,
+.sectors-italian-card:focus-visible .sectors-italian-card-icon-wrap {
+  transform: scale(1.05);
+  box-shadow:
+    0 14px 28px rgba(0, 0, 0, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.92),
+    inset 0 -12px 20px rgba(0, 0, 0, 0.08);
+}
+
+.sectors-italian-card-icon-wrap .sectors-italian-card-icon {
+  position: relative;
+  z-index: 1;
+  transform: translateZ(0);
+  backface-visibility: hidden;
+  -webkit-font-smoothing: antialiased;
+  will-change: transform;
+  transition: transform 240ms ease;
+}
+
+.sectors-italian-card:hover .sectors-italian-card-icon-wrap .sectors-italian-card-icon,
+.sectors-italian-card:focus-visible .sectors-italian-card-icon-wrap .sectors-italian-card-icon {
+  transform: translateZ(0);
+}
+
+.sectors-italian-card-icon {
+  font-size: 1.1rem;
+  color: #28509E;
+  line-height: 1;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.35),
+    0 6px 10px rgba(0, 0, 0, 0.18);
+}
+
+.sectors-italian-card-title {
+  font-family: var(--font-saira, "Saira", sans-serif);
+  font-size: 1.05rem;
+  font-weight: 700;
+  line-height: 1.35;
+  color: #1b3155;
+  margin: 0 0 0.75rem;
+  letter-spacing: 0.01em;
+  transition: color 0.25s ease;
+}
+
+.sectors-italian-card:hover .sectors-italian-card-title,
+.sectors-italian-card:focus-visible .sectors-italian-card-title {
+  color: #28509E;
+}
+
+.sectors-italian-card-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-family: var(--font-saira, "Saira", sans-serif);
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: #28509E;
+  margin-top: auto;
+  transition: gap 0.25s ease, color 0.25s ease;
+}
+
+.sectors-italian-card-arrow {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+  transition: transform 0.25s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.sectors-italian-card:hover .sectors-italian-card-arrow,
+.sectors-italian-card:focus-visible .sectors-italian-card-arrow {
+  transform: translateX(4px);
+}
+
+.sectors-italian-card:hover .sectors-italian-card-cta,
+.sectors-italian-card:focus-visible .sectors-italian-card-cta {
+  color: #1b3155;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sectors-italian-card,
+  .sectors-italian-card-icon-wrap,
+  .sectors-italian-card-arrow {
+    transition: none;
+  }
+  .sectors-italian-card:hover,
+  .sectors-italian-card:focus-visible {
+    transform: none;
+  }
+  .sectors-italian-card:hover .sectors-italian-card-icon-wrap,
+  .sectors-italian-card:focus-visible .sectors-italian-card-icon-wrap {
+    transform: scale(1.02);
+  }
+}
